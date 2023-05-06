@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for, redirect, session
 from settings import HOST, PORT, BACKEND_URL
 
 import json
@@ -8,7 +8,7 @@ app = Flask(__name__)
 @app.route("/")
 def login():
 
-    return render_template("base.html")
+    return redirect('/dashboard/{}'.format('balaji'))
 
 
 @app.route("/dashboard/<string:username>")
