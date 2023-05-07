@@ -3,117 +3,58 @@ from settings import HOST, PORT, BACKEND_URL
 
 import json
 
+f1, f2, f3 = open("./json/academics.json", "r"), open("./json/home.json", "r"), open("./json/research.json", "r")
+academics_data = json.load(f1)
+home_data = json.load(f2)
+research_data = json.load(f3)
+
+
 app = Flask(__name__)
+
 
 @app.route("/")
 def login():
-
-    return redirect('/dashboard/{}'.format('balaji'))
+    return redirect("/dashboard/{}".format("balaji"))
 
 
 @app.route("/dashboard/<string:username>")
 def index(username):
-
-    data = {
-        "username": username,
-        "basic": {
-            "name": "Dr. Balaji Ramanujam",
-            "designation": "Professor",
-            "email": "balaji.cse@crescent.education",
-            "doj": "21-09-2017",
-            "exp": "12 Years",
-            "research": [
-                "Data Mining",
-                "Machine Learning",
-                "Big Data Analytics",
-                "Cloud Computing",
-            ],
-        },
-    }
-
-    return render_template("index.html", data=data, active="dashboard")
+    return render_template("index.html", data=home_data, active="dashboard")
 
 
 @app.route("/dashboard/<string:username>/academics")
 def academic(username):
 
-    data = {
-        "username": username,
-        "charts": {
-            "pass_percentage_data": [
-                ["Compiler", 56],
-                ["Green Design", 78],
-                ["Operating System", 94],
-                ["Cloud Computing", 69],
-            ],
-            "ques_quality_data": {
-                "base_data": [
-                    {"name": "compiler", "y": 52.74, "drilldown": "compiler"},
-                    {"name": "Green Design", "y": 72.74, "drilldown": "Green Design"},
-                    {
-                        "name": "Operating System",
-                        "y": 62.74,
-                        "drilldown": "Operating System",
-                    },
-                    {
-                        "name": "Cloud Computing",
-                        "y": 82.74,
-                        "drilldown": "Cloud Computing",
-                    },
-                ],
-                "drilldown_data": [
-                    {
-                        "name": "compiler",
-                        "id": "compiler",
-                        "data": [["cat1", 47], ["cat2", 50], ["endsem", 75]],
-                    },
-                    {
-                        "name": "Green Design",
-                        "id": "Green Design",
-                        "data": [["cat1", 87], ["cat2", 90], ["endsem", 85]],
-                    },
-                    {
-                        "name": "Operating System",
-                        "id": "Operating System",
-                        "data": [["cat1", 87], ["cat2", 90], ["endsem", 85]],
-                    },
-                    {
-                        "name": "Cloud Computing",
-                        "id": "Cloud Computing",
-                        "data": [["cat1", 87], ["cat2", 90], ["endsem", 85]],
-                    },
-                ],
-            },
-            "material_quality_data": [
-                ["Compiler", 66],
-                ["Green Design", 18],
-                ["Operating System", 98],
-                ["Cloud Computing", 69],
-            ],
-        },
-        "basic": {
-            "name": "Dr. Balaji Ramanujam",
-            "designation": "Professor",
-            "email": "balaji.cse@crescent.education",
-            "doj": "21-09-2017",
-            "exp": "12 Years",
-            "research": [
-                "Data Mining",
-                "Machine Learning",
-                "Big Data Analytics",
-                "Cloud Computing",
-            ],
-            "teaching_methods": [
-                "Slow Paced Lectures",
-                "Focus onCase Study",
-                "Frequent Group Discussion",
-                "Real time Problem Solving",
-            ],
-        },
-    }
+    best_pass_class = academics_data['charts']['pass_percentage_data']
+    best_matr_class = academics_data['charts']['material_quality_data']
+    best_ques_class = academics_data['charts']['ques_quality_data']['base_data']
+
+    best_pass_class = sorted(best_pass_class, key=lambda x: x[1], reverse=True)
+    best_matr_class = sorted(best_matr_class, key=lambda x: x[1], reverse=True)
+    best_ques_class = sorted(best_ques_class, key=lambda x: x['y'], reverse=True)
+
+    best_pass_class = best_pass_class[0][0]
+    best_matr_class = best_matr_class[0][0]
+    best_ques_class = best_ques_class[0]['name']
+
+    academics_data['best_pass_class'] = best_pass_class
+    academics_data['best_matr_class'] = best_matr_class
+    academics_data['best_ques_class'] = best_ques_class
 
     return render_template(
-        "academics.html", data=data, json_data=json.dumps(data), active="academics"
+        "academics.html",
+        data=academics_data,
+        json_data=json.dumps(academics_data),
+        active="academics",
+    )
+
+@app.route("/dashboard/<string:username>/research")
+def research(username):
+    return render_template(
+        "research.html",
+        data=research_data,
+        json_data=json.dumps(research_data),
+        active="research",
     )
 
 
