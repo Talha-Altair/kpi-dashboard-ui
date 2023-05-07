@@ -3,10 +3,11 @@ from settings import HOST, PORT, BACKEND_URL
 
 import json
 
-f1, f2, f3 = open("./json/academics.json", "r"), open("./json/home.json", "r"), open("./json/research.json", "r")
+f1, f2, f3, f4 = open("./json/academics.json", "r"), open("./json/home.json", "r"), open("./json/research.json", "r"), open("./json/contributions.json", "r")
 academics_data = json.load(f1)
 home_data = json.load(f2)
 research_data = json.load(f3)
+contributions_data = json.load(f4)
 
 
 app = Flask(__name__)
@@ -55,6 +56,15 @@ def research(username):
         data=research_data,
         json_data=json.dumps(research_data),
         active="research",
+    )
+
+@app.route("/dashboard/<string:username>/contributions")
+def contributions(username):
+    return render_template(
+        "contributions.html",
+        data=contributions_data,
+        json_data=json.dumps(contributions_data),
+        active="contributions",
     )
 
 
