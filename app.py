@@ -3,11 +3,12 @@ from settings import HOST, PORT, BACKEND_URL
 
 import json
 
-f1, f2, f3, f4 = open("./json/academics.json", "r"), open("./json/home.json", "r"), open("./json/research.json", "r"), open("./json/contributions.json", "r")
+f1, f2, f3, f4, f5 = open("./json/academics.json", "r"), open("./json/home.json", "r"), open("./json/research.json", "r"), open("./json/contributions.json", "r"), open("./json/networking.json", "r")
 academics_data = json.load(f1)
 home_data = json.load(f2)
 research_data = json.load(f3)
 contributions_data = json.load(f4)
+networking_data = json.load(f5)
 
 
 app = Flask(__name__)
@@ -65,6 +66,15 @@ def contributions(username):
         data=contributions_data,
         json_data=json.dumps(contributions_data),
         active="contributions",
+    )
+
+@app.route("/dashboard/<string:username>/networking")
+def networking(username):
+    return render_template(
+        "networking.html",
+        data=networking_data,
+        json_data=json.dumps(networking_data),
+        active="networking",
     )
 
 
