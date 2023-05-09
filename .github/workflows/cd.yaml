@@ -15,4 +15,6 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         script: |
           cd /home/talha/kpi-dashboard-ui
+          kill -9 $(lsof -i:3000 -t)
           git pull
+          nohup python3 app.py &
