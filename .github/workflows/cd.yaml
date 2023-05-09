@@ -14,8 +14,9 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         script: |
-          cd /home/talha/kpi-dashboard-ui
-          kill -9 $(lsof -i:3000 -t)
+          cd /home/talha/KPI
+          docker-compose down
+          cd /home/talha/KPI/kpi-dashboard-ui
           git pull
-          echo | nohup python3 app.py & > app.log
-          echo "DONE"
+          cd /home/talha/KPI
+          docker-compose up -d --build
