@@ -67,7 +67,8 @@
                             <div class="row">
                                 <div class="col-8">
                                     <div class="numbers">
-                                        <p class="text-sm mb-0 text-capitalize font-weight-bold">Years served in Crescent</p>
+                                        <p class="text-sm mb-0 text-capitalize font-weight-bold">Years served in
+                                            Crescent</p>
                                         <h5 class="font-weight-bolder mb-0">
                                             {{ data.basic.served_in_crescent }}
                                         </h5>
@@ -82,13 +83,14 @@
                 <div class="col-lg-3 mb-lg-0 mb-5">
                     <div class="card">
                         <div class="card-body p-3">
-                            <img width="350" height="350" class="rounded-circle img-center img-fluid shadow shadow-lg--hover"
-                                src="https://raw.githubusercontent.com/Talha-Altair/intellect2k21/prod/static/static_pics/designer%20srirangarajan.jpg"
-                                alt="image not found">
+                            <img width="350" height="450"
+                                class="rounded-circle img-center img-fluid shadow shadow-lg--hover"
+                                src="{{ data.image }}" alt="image not found">
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3">
+
+                <div class="col-lg-4">
                     <div class="card">
                         <div class="card-header pb-0">
                             <h6 class="font-weight-bold">Areas of Research Interest</h6>
@@ -97,8 +99,138 @@
                             <p class="text-sm">
                                 {{ data }}
                             </p>
-                            
+
                             {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-5 col-xl-15">
+                    <div class="card h-100">
+                        <div class="card-body p-3">
+                            <div id="piechart"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                    <div class="card">
+                        <div class="card-body p-3">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="numbers">
+                                        <p class="text-sm mb-0 text-capitalize font-weight-bold">Number of patents held
+                                        </p>
+                                        <h5 class="font-weight-bolder mb-0">
+                                            {{ data.patents | length }}
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                    <div class="card">
+                        <div class="card-body p-3">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="numbers">
+                                        <p class="text-sm mb-0 text-capitalize font-weight-bold">Consultancies held</p>
+                                        <h5 class="font-weight-bolder mb-0">
+                                            {{ data.consultancies | length }}
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4 ">
+                    <div class="card">
+                        <div class="card-body p-3">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="numbers">
+                                        <p class="text-sm mb-0 text-capitalize font-weight-bold">Research and Academic
+                                            Awards</p>
+                                        <h5 class="font-weight-bolder mb-0">
+                                            {{ data.awards | length }}
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                    <div class="card">
+                        <div class="card-body p-3">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="numbers">
+                                        <p class="text-sm mb-0 text-capitalize font-weight-bold">Offering Research
+                                            Guidance</p>
+                                        <h5 class="font-weight-bolder mb-0">
+                                            {% if data.research_guidance %}
+                                            Yes
+                                            {% else %}
+                                            No
+                                            {% endif %}
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-lg-0 mb-5">
+                    <div class="card">
+                        <div class="card-header pb-0">
+                            <h6 class="font-weight-bold">Courses Handled</h6>
+                            {% for courses in data.courses %}
+
+                            <p class="text-sm">
+                                {{ courses }}
+                            </p>
+
+                            {% endfor %}
+                            <h6 class="font-weight-bold">Participation in Syllabus Revision</h6>
+                            {% for courses in data.syllabus_revision %}
+
+                            <p class="text-sm">
+                                {{ courses }}
+                            </p>
+
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3 mb-lg-0 mb-5">
+                    <div class="card">
+                        <div class="card-body p-1">
+                            <div id="containerpass">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-lg-0 mb-5">
+                    <div class="card">
+                        <div class="card-header pb-0">
+                            <h6 class="font-weight-bold">Faculty Development Programs</h6>
+                            {% for dp in data.fdp %}
+
+                            <p class="text-sm">
+                                {{ dp }}
+                            </p>
+
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-lg-0 mb-5">
+                    <div class="card">
+                        <div class="card-body p-3">
+                            <div id="containerquesquality">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -106,3 +238,159 @@
         </div>
     </div>
 </body>
+<script>
+
+    var json_data = JSON.parse({{ json_data | tojson | safe }});
+    var pass_percentage_data = json_data.charts.pass_percentage_data;
+    var journal_papers_published_num = json_data.journal_papers_published.length;
+    var conference_papers_published_num = json_data.conference_papers_published.length;
+    var patents_num = json_data.patents.length;
+    var consultancies_num = json_data.consultancies.length;
+    var awards_num = json_data.awards.length;
+    var ques_quality_data = json_data.charts.ques_quality_data;
+
+    Highcharts.chart('containerquesquality', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            align: 'center',
+            text: 'Quality of Question paper per subject per exam'
+        },
+        accessibility: {
+            announceNewData: {
+                enabled: true
+            }
+        },
+        xAxis: {
+            type: 'category'
+        },
+        yAxis: {
+            title: {
+                text: 'percentage of quality'
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y:.1f}%'
+                }
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+        },
+        series: [
+            {
+                name: 'Subjects',
+                colorByPoint: true,
+                colors:['#01A484','#41649C','#6A824B','#7A787A','#ACA8C8'],
+                data: ques_quality_data.base_data
+            }
+        ],
+        drilldown: {
+            breadcrumbs: {
+                position: {
+                    align: 'right'
+                }
+            },
+            series: ques_quality_data.drilldown_data
+        }
+    });
+    
+    Highcharts.chart('containerpass', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Pass Percentage per Subject'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            type: 'category',
+            labels: {
+                rotation: -45,
+                style: {
+                    fontSize: '13px',
+                    fontFamily: 'Verdana, sans-serif'
+                }
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Percentage of students passed'
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        tooltip: {
+            pointFormat: 'pass percentage <b>{point.y:.1f}%</b>'
+        },
+        series: [{
+            name: 'Population',
+            colorByPoint: true,
+            colors: ['#FCBD9C', '#391D0D', '#AA579F', '#8EA5CC', '#4C325C', 'DC346C'],
+            groupPadding: 0,
+            data: pass_percentage_data,
+            dataLabels: {
+                enabled: true,
+                rotation: -90,
+                color: '#FFFFFF',
+                align: 'right',
+                format: '{point.y:.1f}', // one decimal
+                y: 10, // 10 pixels down from the top
+                style: {
+                    fontSize: '13px',
+                    fontFamily: 'Verdana, sans-serif'
+                }
+            }
+        }]
+    });
+
+    Highcharts.chart('piechart', {
+        chart: {
+            type: 'pie'
+        },
+        title: {
+            text: 'Distribution of Research Focus',
+            align: 'left'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.y:.0f}</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                depth: 35,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.name}'
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Share',
+            colors: ['#2085EC', '#72B4EB', '#0A417A', '#8464A0', '#CEA9BC', '#323232'],
+            data: [
+                ['journal_papers_published', journal_papers_published_num],
+                ['conference_papers_published', conference_papers_published_num],
+                ['patents', patents_num],
+                ['consultancies', consultancies_num],
+                ['awards', awards_num]
+            ]
+        }]
+    });
+
+</script>
