@@ -26,10 +26,11 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="numbers">
-                                        <p class="text-sm mb-0 text-capitalize font-weight-bold">Number of patents held
+                                        <p class="text-sm mb-0 text-capitalize font-weight-bold">Organizing Affiliate
+                                            faculty
                                         </p>
                                         <h5 class="font-weight-bolder mb-0">
-                                            {{ data.patents | length }}
+                                            {{ data.affliate_faculty | length }}
                                         </h5>
                                     </div>
                                 </div>
@@ -43,9 +44,9 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="numbers">
-                                        <p class="text-sm mb-0 text-capitalize font-weight-bold">Consultancies held</p>
+                                        <p class="text-sm mb-0 text-capitalize font-weight-bold">Organizing MoU</p>
                                         <h5 class="font-weight-bolder mb-0">
-                                            {{ data.consultancies | length }}
+                                            {{ data.mou_signed | length }}
                                         </h5>
                                     </div>
                                 </div>
@@ -59,10 +60,9 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="numbers">
-                                        <p class="text-sm mb-0 text-capitalize font-weight-bold">Research and Academic
-                                            Awards</p>
+                                        <p class="text-sm mb-0 text-capitalize font-weight-bold">Newsletter Releases</p>
                                         <h5 class="font-weight-bolder mb-0">
-                                            {{ data.awards | length }}
+                                            {{ data.newsletter_released | length }}
                                         </h5>
                                     </div>
                                 </div>
@@ -72,22 +72,22 @@
                 </div>
             </div>
             <div class="row mt-4 removable">
-                {% if data.journal_papers_published %}
+                {% if data.affliate_faculty %}
                 <div class="col-14 col-xl-6">
                     <div class="card h-100">
                         <div class="card-header pb-0 p-3">
                             <div class="row">
                                 <div class="col-md-8 d-flex align-items-center">
-                                    <h6 class="mb-0">Journal Papers Published</h6>
+                                    <h6 class="mb-0">Organizing Affiliate faculty for Courses</h6>
                                 </div>
                             </div>
                         </div>
                         <div class="card-body p-3">
                             <p class="text-sm">
-                                Listed below are the Papers Published by <b>{{ data.basic.name }}</b>
+                                Organizing Affiliate faculty for Courses by <b>{{ data.basic.name }}</b>
                             </p>
                             <ul class="list-group">
-                                {% for paper in data.journal_papers_published %}
+                                {% for paper in data.affliate_faculty %}
                                 <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">{{
                                         loop.index }}.</strong> &nbsp; {{ paper }}</li>
                                 {% endfor %}
@@ -96,30 +96,30 @@
                     </div>
                 </div>
                 {% endif %}
-                
+
                 <div class="col-14 col-xl-6">
                     <div class="card h-100">
                         <div class="card-body p-3">
-                            <div id="piechart"></div>
+                            <div id="networking_bar"></div>
                         </div>
                     </div>
                 </div>
-                {% if data.conference_papers_published %}
+                {% if data.mou_signed %}
                 <div class="col-14 col-xl-6">
                     <div class="card h-100">
                         <div class="card-header pb-0 p-3">
                             <div class="row">
                                 <div class="col-md-8 d-flex align-items-center">
-                                    <h6 class="mb-0">Papers presented at conferences</h6>
+                                    <h6 class="mb-0">Organizing MoU and other MoU related activities</h6>
                                 </div>
                             </div>
                         </div>
                         <div class="card-body p-3">
                             <p class="text-sm">
-                                Papers presented at conferences by <b>{{ data.basic.name }}</b>
+                                MoU organized by <b>{{ data.basic.name }}</b>
                             </p>
                             <ul class="list-group">
-                                {% for paper in data.conference_papers_published %}
+                                {% for paper in data.mou_signed %}
                                 <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">{{
                                         loop.index }}.</strong> &nbsp; {{ paper }}</li>
                                 {% endfor %}
@@ -128,22 +128,22 @@
                     </div>
                 </div>
                 {% endif %}
-                {% if data.awards %}
+                {% if data.newsletter_released %}
                 <div class="col-14 col-xl-6">
                     <div class="card h-100">
                         <div class="card-header pb-0 p-3">
                             <div class="row">
                                 <div class="col-md-8 d-flex align-items-center">
-                                    <h6 class="mb-0">Research and Academic Awards</h6>
+                                    <h6 class="mb-0">Release of Newsletters</h6>
                                 </div>
                             </div>
                         </div>
                         <div class="card-body p-3">
                             <p class="text-sm">
-                                Awards recieved by <b>{{ data.basic.name }}</b>
+                                Newsletters released by <b>{{ data.basic.name }}</b>
                             </p>
                             <ul class="list-group">
-                                {% for award in data.awards %}
+                                {% for award in data.newsletter_released %}
                                 <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">{{
                                         loop.index }}.</strong> &nbsp; {{ award }}</li>
                                 {% endfor %}
@@ -160,13 +160,13 @@
 
     var json_data = JSON.parse({{ json_data | tojson | safe }});
 
-    var journal_papers_published_num = json_data.journal_papers_published.length;
-    var conference_papers_published_num = json_data.conference_papers_published.length;
-    var patents_num = json_data.patents.length;
+    var newsletter_released_num = json_data.newsletter_released.length;
+    var mou_signed_num = json_data.mou_signed.length;
+    var affliate_faculty_num = json_data.affliate_faculty.length;
     var consultancies_num = json_data.consultancies.length;
     var awards_num = json_data.awards.length;
 
-    Highcharts.chart('piechart', {
+    Highcharts.chart('networking_bar', {
         chart: {
             type: 'pie'
         },
@@ -191,15 +191,14 @@
         series: [{
             type: 'pie',
             name: 'Share',
-            colors:['#72b4eb','#0a417A','#8464A0','#016056','#CEA9BC','#2085r0'],
+            colors:['#2085EC','#72B4EB','#0A417A','#8464A0','#CEA9BC','#323232'],
             data: [
-                ['journal_papers_published', journal_papers_published_num],
-                ['conference_papers_published', conference_papers_published_num],
-                ['patents', patents_num],
+                ['journal_papers_published', newsletter_released_num],
+                ['conference_papers_published', mou_signed_num],
+                ['patents', affliate_faculty_num],
                 ['consultancies', consultancies_num],
                 ['awards', awards_num]
             ]
         }]
     });
-
 </script>
